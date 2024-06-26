@@ -50,6 +50,7 @@ public class Editor
     
     private bool Initialize()
     {
+        InitObjects();
         if (!_editorObjectManager.Initialize()) return false;
         
         return true;
@@ -59,7 +60,21 @@ public class Editor
     {
         CopyDirectory("../../../Editor/Assets", "./Assets");
     }
-    
+
+    private void InitObjects()
+    {
+        //FPS
+        EditorObject fps = new("FPS");
+        
+        //cheap right align TODO: Remove later
+        fps.WorldPosition = new Vector2f(_window.Size.X - 120, 0);
+        
+        var fpsTextRenderComponent = fps.AddComponent<TextRenderComponent>(fps, _window);
+        fpsTextRenderComponent.SetRenderPriority(1);
+        fpsTextRenderComponent.SetLocalPosition(new Vector2f(10, 10));
+        fpsTextRenderComponent.SetSize(20);
+    }
+
     private void Draw()
     {
         _window.Clear();
@@ -70,6 +85,9 @@ public class Editor
     private void Update()
     {
         _editorObjectManager.Update();
+        
+        // Only for testing
+        _editorObjectManager.GetObjectById("FPS").GetComponent<TextRenderComponent>()?.SetText($"FPS: {SharpTime.GetFps()}");
     }
     
     private void ResizeWindow(object? sender, SizeEventArgs e)
