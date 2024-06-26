@@ -73,6 +73,10 @@ public class Editor
         fpsTextRenderComponent.SetRenderPriority(1);
         fpsTextRenderComponent.SetLocalPosition(new Vector2f(10, 10));
         fpsTextRenderComponent.SetSize(20);
+        
+        var fpsFillRenderComponent = fps.AddComponent<FillRenderComponent>(fps, _window, new Vector2f(120, 40));
+        fpsFillRenderComponent.SetFillColor(new Color(23, 23, 23));
+        
     }
 
     private void Draw()
