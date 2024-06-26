@@ -63,19 +63,25 @@ public class Editor
 
     private void InitObjects()
     {
+        EditorObject toolbar = new("Toolbar");
+        toolbar.AddComponent<FillRenderComponent>(toolbar, _window, new Vector2f(_window.Size.X, 40))
+            .SetFillColor(new Color(33, 33, 33));
+
         //FPS
         EditorObject fps = new("FPS");
         
         //cheap right align TODO: Remove later
-        fps.WorldPosition = new Vector2f(_window.Size.X - 120, 0);
+        fps.LocalPosition = new Vector2f(_window.Size.X - 120, 0);
         
         var fpsTextRenderComponent = fps.AddComponent<TextRenderComponent>(fps, _window);
         fpsTextRenderComponent.SetRenderPriority(1);
         fpsTextRenderComponent.SetLocalPosition(new Vector2f(10, 10));
         fpsTextRenderComponent.SetSize(20);
         
-        var fpsFillRenderComponent = fps.AddComponent<FillRenderComponent>(fps, _window, new Vector2f(120, 40));
-        fpsFillRenderComponent.SetFillColor(new Color(23, 23, 23));
+        fps.AddComponent<FillRenderComponent>(fps, _window, new Vector2f(120, 40))
+            .SetFillColor(new Color(23, 23, 23));
+        
+        toolbar.AddChild(fps);
         
     }
 
